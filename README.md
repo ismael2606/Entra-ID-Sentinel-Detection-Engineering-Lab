@@ -1,1 +1,1 @@
-# Entra-ID-Sentinel-Detection-Engineering-Lab
+# Entra ID: Sentinel Detection Engineering Lab
