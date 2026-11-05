@@ -16,7 +16,9 @@
   later the Logic App) to avoid cross-region errors/costs.
 
 ### Entra → Sentinel ingestion lag
-- **Symptom:** <if you hit this> the logs-flowing query returned empty immediately after
+- **Symptom:** ![](architecture/sentinel-ingestion-lag.png). 
+
+The logs-flowing query returned empty immediately after
   the test sign-in.
 - **Cause:** Entra→Log Analytics ingestion has ~5–15 min lag; empty at 2 min is normal.
 - **Fix:** waited out the lag before concluding the connector was misconfigured.
