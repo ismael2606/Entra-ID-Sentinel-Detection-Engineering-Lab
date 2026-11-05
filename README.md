@@ -15,4 +15,5 @@ Log Analytics workspace (`<sentinel-logger>`) → Microsoft Sentinel → KQL ana
 
 **Pipeline verified before any attack:** a test sign-in was generated and confirmed to
 appear in `SigninLogs` in Sentinel, proving end-to-end ingestion works. Evidence:
+
 ![](architecture/m1-logs-flowing.png)
