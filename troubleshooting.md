@@ -16,7 +16,7 @@
   later the Logic App) to avoid cross-region errors/costs.
 
 ### Entra → Sentinel ingestion lag
-- **Symptom:** ![](architecture/sentinel-ingestion-lag.png). 
+- **Symptom:** ![](architecture/sentinel-ingestion-lag.png)
 
 The logs-flowing query returned empty immediately after
   the test sign-in.
