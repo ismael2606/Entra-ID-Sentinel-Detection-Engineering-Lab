@@ -9,7 +9,7 @@ Log Analytics workspace (`<sentinel-logger>`) → Microsoft Sentinel → KQL ana
 
 - **Entra ID** — identity provider and attack surface; emits SigninLogs + AuditLogs.
 - **Entra data connector / diagnostic settings** — forwards those logs to the workspace.
-- **Log Analytics workspace** (`sentinel-looger`) — stores the log tables KQL queries.
+- **Log Analytics workspace** (`sentinel-logger`) — stores the log tables KQL queries.
 - **Microsoft Sentinel** — the SIEM layer; analytics rules run KQL on a schedule and raise incidents.
 - Region: `East US`.
 
