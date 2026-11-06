@@ -1,7 +1,7 @@
 # simulate-spray.sh  — against YOUR tenant only
 TENANT="ismaeldavid2010gmail.onmicrosoft.com"     # [VERIFY] your tenant
 CLIENT_ID="1950a258-227b-4e31-a9cf-717495945fc2"  # well-known public client [VERIFY still valid]
-WRONG_PW="Mr_Kali26."                    # a common-looking wrong password
+WRONG_PW="<placeholder-wrong-password>"                   
 USERS=("ana" "bobby" "carolin" "dave" "erick")
 
 for U in "${USERS[@]}"; do
