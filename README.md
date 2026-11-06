@@ -37,7 +37,8 @@ token endpoint, across 5 test users (`attacks/password-spray.sh`), producing fai
 **The signal.** Many distinct users failing authentication from a single source in a short
 window:
 
-​```kql
+​```
+kql
 SigninLogs
 | where ResultType != 0
 | summarize FailedCount = count(),
