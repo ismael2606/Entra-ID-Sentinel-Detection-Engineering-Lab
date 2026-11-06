@@ -1,0 +1,14 @@
+// Password Spray detection — MITRE ATT&CK T1110.003
+// Fires when >= 3 distinct users fail authentication from one source IP in a 10-minute window.
+// NOTE: lookback window is set in the Sentinel analytics-rule config, not here —
+//       that's why there is no TimeGenerated/ago() filter in this query.
+// Entity mapping: IP only (Account mapping unavailable — users are aggregated into an
+//       array via make_set; see limitations).
+
+SigninLogs
+| where ResultType != 0
+| summarize FailedCount = count(),
+            DistinctUsers = dcount(UserPrincipalName),
+            Users = make_set(UserPrincipalName)
+        by IPAddress, bin(TimeGenerated, 10m)
+| where DistinctUsers >= 3
