@@ -7,7 +7,7 @@ Cloud-identity detection pipeline, all in Azure:
 Attacker (Kali) → Entra ID tenant → Entra diagnostic settings →
 Log Analytics workspace (`<sentinel-logger>`) → Microsoft Sentinel → KQL analytics rules → Incidents
 
-- **Entra ID** — identity provider and attack surface; emits SigninLogs + AuditLogs.
+- **Entra ID** — identity provider and attack surface; provides SigninLogs + AuditLogs.
 - **Entra data connector / diagnostic settings** — forwards those logs to the workspace.
 - **Log Analytics workspace** (`sentinel-logger`) — stores the log tables KQL queries.
 - **Microsoft Sentinel** — the SIEM layer; analytics rules run KQL on a schedule and raise incidents.
