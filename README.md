@@ -96,7 +96,7 @@ AuditLogs
 | Test | Input | Expected | Result |
 |---|---|---|---|
 | Positive | app consent granted | incident fires | ![](evidence/m3-incident.png) |
-| Negative (logic) | any non-consent audit event | no match | 0 rows — rule matches only the consent operation |
+| Negative (logic) | any non-consent audit event | no match | ![](evidence/m3-negative-test.png) |
 
 The incident correctly surfaced the granting account as an entity. The negative test is a
 logic check: the rule's filter matches **only** `Consent to application`, so unrelated audit
