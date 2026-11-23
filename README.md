@@ -59,8 +59,8 @@ from one source in a 10-minute bin.
 
 | Test | Input | Expected | Result |
 |---|---|---|---|
-| Positive | spray (≥3 users fail, one source) | incident fires | ✅ fired ![](evidence/m2-incident.png) |
-| Negative | single failed login (1 user) | no incident | ✅ 0 rows / no incident ![](evidence/m2-negative-test.png) |
+| Positive | spray (≥3 users fail, one source) | incident fires |![](evidence/m2-incident.png) |
+| Negative | single failed login (1 user) | no incident | 0 rows - no incident ![](evidence/m2-negative-test.png) |
 
 The **negative test** is the important half: a single failed login logged in `SigninLogs`
 (1 user) but returned **zero rows** against the rule query — the `≥3` threshold held, so no
@@ -96,8 +96,8 @@ AuditLogs
 
 | Test | Input | Expected | Result |
 |---|---|---|---|
-| Positive | app consent granted | incident fires | ✅ fired (incident, ![](evidence/m3-incident.png) |
-| Negative (logic) | any non-consent audit event | no match | ✅ 0 rows — rule matches only the consent operation |
+| Positive | app consent granted | incident fires | ![](evidence/m3-incident.png) |
+| Negative (logic) | any non-consent audit event | no match | 0 rows — rule matches only the consent operation |
 
 The incident correctly surfaced the granting account as an entity. The negative test is a
 logic check: the rule's filter matches **only** `Consent to application`, so unrelated audit
