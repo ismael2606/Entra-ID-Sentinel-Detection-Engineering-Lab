@@ -1,0 +1,7 @@
+# Validation — Illicit Consent Grant detection
+## Positive
+App consent granted → incident "Illicit consent grant — app consent" fired; granting account
+surfaced as an entity. Evidence: evidence/m3-incident.png
+## Negative (logic)
+Confirmed the rule matches only OperationName == "Consent to application" (0 rows for any
+other audit event). Rule is specific to the consent operation.
