@@ -120,5 +120,23 @@ by default, so the realistic attack vector is tricking a privileged account into
 consent. The detection keys on the consent event itself, so it covers the admin-consent path
 that a hardened tenant actually exposes.
 
-**Note:** MFA does not prevent this technique — the user/admin authenticates legitimately,
-then authorizes the app. Detection (not prevention via MFA) is the control that catches it.
+### Why MFA doesn't address this
+
+The attack abuses **authorization**, not **authentication** — two different control planes:
+
+1. Victim clicks a consent link (phishing) and **signs in normally — passing MFA.** This is a
+   legitimate authentication to their own account; MFA does its job.
+2. Victim sees a consent prompt ("this app wants to read your mail / maintain access") and
+   clicks **Accept** — authorizing the app.
+3. The app receives an OAuth **token** (with `offline_access`, a persistent refresh token) and
+   accesses the victim's data via Microsoft Graph **from the attacker's infrastructure, using
+   the token — never re-authenticating.**
+
+MFA secures step 1 (proving who signed in). The compromise is at step 2 (what the
+authenticated user consented to) — a plane MFA has no say over. No second login occurs for MFA
+to challenge; the app just uses its token.
+
+In this tenant, user consent was blocked by default, so the viable path was **admin consent** —
+and that is *more* dangerous: an admin can grant an app **tenant-wide** data access (all users'
+mail/files), not just their own. A bigger blast radius is why consent-phishing targets privileged
+accounts. **Detection — not MFA — is the control that catches this.**
