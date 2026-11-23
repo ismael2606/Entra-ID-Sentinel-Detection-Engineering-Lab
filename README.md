@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Cloud-identity detection pipeline, all in Azure:
+Cloud-identity detection pipeline, all in Azure, where we capture 2 incidents using different data sources (SignInLogs & AuditLogs):
 
 Attacker (Kali) → Entra ID tenant → Entra diagnostic settings →
 Log Analytics workspace (`sentinel-logger`) → Microsoft Sentinel → KQL analytics rules → Incidents
