@@ -101,4 +101,4 @@ AuditLogs
 
 The incident correctly surfaced the granting account as an entity. The negative test is a
 logic check: the rule's filter matches **only** `Consent to application`, so unrelated audit
-activity cannot trip it.
+activity doesn't interfere.
