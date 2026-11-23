@@ -44,8 +44,7 @@ SigninLogs
             DistinctUsers = dcount(UserPrincipalName),
             Users = make_set(UserPrincipalName)
         by IPAddress, bin(TimeGenerated, 10m)
-| where DistinctUsers >= 3
-```
+| where DistinctUsers >= 3```
 
 **The detection.** A scheduled Sentinel analytics rule on the query above (full rule in
 `detections/password-spray.kql`), mapped to T1110.003. Triggers when ≥3 distinct users fail
@@ -84,8 +83,7 @@ AuditLogs
 | where Result == "success"
 | extend AppName = tostring(TargetResources[0].displayName)
 | project TimeGenerated, OperationName, AppName,
-          InitiatedBy = tostring(parse_json(InitiatedBy).user.userPrincipalName)
-```
+          InitiatedBy = tostring(parse_json(InitiatedBy).user.userPrincipalName)```
 
 **The detection.** A scheduled Sentinel analytics rule on the query above (full rule in
 `detections/consent-grant.kql`), mapped to T1528. Runs every 5 min, 1-hour lookback.
