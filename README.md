@@ -84,7 +84,7 @@ AuditLogs
 | where Result == "success"
 | extend AppName = tostring(TargetResources[0].displayName)
 | project TimeGenerated, OperationName, AppName,
-          InitiatedBy = tostring(parse_json(InitiatedBy).user.userPrincipalName)
+| InitiatedBy = tostring(parse_json(InitiatedBy).user.userPrincipalName)
 ​```
 
 **The detection.** A scheduled Sentinel analytics rule on the query above (full rule in
