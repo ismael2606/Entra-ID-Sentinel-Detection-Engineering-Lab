@@ -37,15 +37,15 @@ token endpoint, across 5 test users (`attacks/password-spray.sh`), producing fai
 **The signal.** Many distinct users failing authentication from a single source in a short
 window:
 
-​```
-kql
+​`kql
 SigninLogs
 | where ResultType != 0
 | summarize FailedCount = count(),
             DistinctUsers = dcount(UserPrincipalName),
             Users = make_set(UserPrincipalName)
         by IPAddress, bin(TimeGenerated, 10m)
-| where DistinctUsers >= 3```
+| where DistinctUsers >= 3`
+
 
 **The detection.** A scheduled Sentinel analytics rule on the query above (full rule in
 `detections/password-spray.kql`), mapped to T1110.003. Triggers when ≥3 distinct users fail
