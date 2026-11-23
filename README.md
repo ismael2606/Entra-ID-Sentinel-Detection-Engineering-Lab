@@ -71,7 +71,7 @@ spray.
 
 ## Detection 2 — Illicit Consent Grant (MITRE ATT&CK T1528)
 
-**The attack.** An illicit consent grant tricks a victim into consenting to a malicious
+**The attack:** An illicit consent grant tricks a victim into consenting to a malicious
 OAuth app, giving the app a token to the user's data — no password needed, and MFA doesn't
 help, because the user authenticates legitimately and then authorizes the app. A registered
 test app (`legit-app`) requesting delegated Graph permissions was consented to; the grant
@@ -96,7 +96,7 @@ AuditLogs
 
 | Test | Input | Expected | Result |
 |---|---|---|---|
-| Positive | app consent granted | incident fires | ✅ fired (incident, `evidence/m3-incident.png`) |
+| Positive | app consent granted | incident fires | ✅ fired (incident, evidence/m3-incident.png) |
 | Negative (logic) | any non-consent audit event | no match | ✅ 0 rows — rule matches only the consent operation |
 
 The incident correctly surfaced the granting account as an entity. The negative test is a
