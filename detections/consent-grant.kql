@@ -1,0 +1,10 @@
+// Illicit Consent Grant detection — MITRE ATT&CK T1528
+// Fires on a successful app-consent event in AuditLogs.
+// Lookback/schedule set in the Sentinel rule config (every 5 min, 1h lookback) — not here.
+
+AuditLogs
+| where OperationName == "Consent to application"
+| where Result == "success"
+| extend AppName = tostring(TargetResources[0].displayName)
+| project TimeGenerated, OperationName, AppName,
+          InitiatedBy = tostring(parse_json(InitiatedBy).user.userPrincipalName)
