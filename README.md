@@ -66,3 +66,39 @@ The **negative test** is the important half: a single failed login logged in `Si
 (1 user) but returned **zero rows** against the rule query — the `≥3` threshold held, so no
 incident fired. The detection discriminates a benign fat-fingered password from an actual
 spray.
+
+
+
+## Detection 2 — Illicit Consent Grant (MITRE ATT&CK T1528)
+
+**The attack.** An illicit consent grant tricks a victim into consenting to a malicious
+OAuth app, giving the app a token to the user's data — no password needed, and MFA doesn't
+help, because the user authenticates legitimately and then authorizes the app. A registered
+test app (`legit-app`) requesting delegated Graph permissions was consented to; the grant
+produces a **"Consent to application"** event in `AuditLogs`.
+
+**The signal.** A successful app-consent event:
+
+​```kql
+AuditLogs
+| where OperationName == "Consent to application"
+| where Result == "success"
+| extend AppName = tostring(TargetResources[0].displayName)
+| project TimeGenerated, OperationName, AppName,
+          InitiatedBy = tostring(parse_json(InitiatedBy).user.userPrincipalName)
+​```
+
+**The detection.** A scheduled Sentinel analytics rule on the query above (full rule in
+`detections/consent-grant.kql`), mapped to T1528. Runs every 5 min, 1-hour lookback.
+`InitiatedBy` is mapped to an Account entity, so incidents show who granted the consent.
+
+**Validation.**
+
+| Test | Input | Expected | Result |
+|---|---|---|---|
+| Positive | app consent granted | incident fires | ✅ fired (incident, `evidence/m3-incident.png`) |
+| Negative (logic) | any non-consent audit event | no match | ✅ 0 rows — rule matches only the consent operation |
+
+The incident correctly surfaced the granting account as an entity. The negative test is a
+logic check: the rule's filter matches **only** `Consent to application`, so unrelated audit
+activity cannot trip it.
