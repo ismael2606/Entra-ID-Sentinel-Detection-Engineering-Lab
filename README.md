@@ -44,8 +44,7 @@ SigninLogs
             DistinctUsers = dcount(UserPrincipalName),
             Users = make_set(UserPrincipalName)
         by IPAddress, bin(TimeGenerated, 10m)
-| where DistinctUsers >= 3
-```
+| where DistinctUsers >= 3```
 
 
 **The detection.** A scheduled Sentinel analytics rule on the query above (full rule in
