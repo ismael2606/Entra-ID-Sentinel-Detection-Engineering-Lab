@@ -102,3 +102,23 @@ AuditLogs
 The incident correctly surfaced the granting account as an entity. The negative test is a
 logic check: the rule's filter matches **only** `Consent to application`, so unrelated audit
 activity doesn't interfere.
+
+
+## Finding — layered consent controls block the user-consent attack path
+
+Attempting the classic user-consent illicit grant surfaced **three stacked controls** that
+blocked it, by default:
+1. **User consent restricted** — users got "admin approval required," not a consent prompt.
+2. **Permission classification** — enabling user consent only allows permissions explicitly
+   classified "low impact" (an empty list by default).
+3. **Admin-consent-required scopes** — high-value permissions (Mail.Read, Files.Read.All)
+   require admin consent regardless of the above.
+
+The consent only succeeded via the **admin-consent path** — i.e. an admin granting it. This
+is exactly why real consent-phishing campaigns target **admins**: user consent is locked down
+by default, so the realistic attack vector is tricking a privileged account into granting
+consent. The detection keys on the consent event itself, so it covers the admin-consent path
+that a hardened tenant actually exposes.
+
+**Note:** MFA does not prevent this technique — the user/admin authenticates legitimately,
+then authorizes the app. Detection (not prevention via MFA) is the control that catches it.
